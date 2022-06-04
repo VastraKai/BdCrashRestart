@@ -1,2 +1,2 @@
 # BdCrashRestart 
-Automatically restarts Discord when BD crashes.
+###### Automatically restarts Discord when BD crashes. :)
