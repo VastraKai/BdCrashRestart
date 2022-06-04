@@ -3,11 +3,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Discord;
-using Discord.Webhook;
 
 class Program
 {
+
     [DllImport("user32.dll")]
     static extern IntPtr GetForegroundWindow();
 
@@ -27,12 +26,14 @@ class Program
         }
         return null;
     }
-    public static void Main(string[] args)
+
+
+    public static void Main(string[] args) 
     {
         Console.CancelKeyPress += new Program().Console_CancelKeyPress;
         AppDomain.CurrentDomain.ProcessExit += new Program().AppDomain_ProcessExit;
         Console.Title = "BdCrashRestart";
-        new Program().Run(args);
+        new Program().Run(args); // So this method isn't static
     }
 
     private void AppDomain_ProcessExit(object? sender, EventArgs e)
@@ -54,15 +55,15 @@ class Program
     public void Run(string[] args)
     {
         string DiscordPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Discord\\Update.exe"; // Change as needed
-        string DiscordProcessName = "discord"; // Change as needed, don't append .exe to it
-        string DiscordArgs = $"--processStart {DiscordProcessName}.exe"; // 
+        string DiscordProcessName = "discord"; // Change as needed (don't append .exe to it)
+        string DiscordArgs = $"--processStart {DiscordProcessName}.exe";
         log.logWrite(log.escColor("0", "150", "255") + "Initialized successfully.");
         while (true)
         {
             string? wndTitle = GetActiveWindowTitle();
             if(wndTitle != null)
             {
-                if (wndTitle.ToLower().Contains("betterdiscord crashed")) // checks if the foreground window title contains "betterdiscord crashed"s
+                if (wndTitle.ToLower().Contains("betterdiscord crashed")) // checks if the foreground window title contains "betterdiscord crashed" (This isn't a good way of doing this)
                 {
                     log.logWrite(log.escColor("255", "0", "0") + "BetterDiscord has crashed!\n" + log.escColor("255", "145", "0") + "Restarting discord");
                     Process[] procs = Process.GetProcessesByName(DiscordProcessName);
