@@ -78,7 +78,7 @@ class Program
                     log.logWrite("Done");
                 }
             }
-            Thread.Sleep(1000);
+            Thread.Sleep(400);
         }
     }
 }
